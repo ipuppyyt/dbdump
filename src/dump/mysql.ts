@@ -14,14 +14,21 @@ export class MySQLDumper {
     public async dump(): Promise<void> {
         await this.connect();
 
+        const dbName = this.config.database;
+        let dumpSQL = `-- Dump of database ${dbName}: iPuppyYT\n\n`;
+        dumpSQL += `CREATE DATABASE IF NOT EXISTS \`${dbName}\`;\nUSE \`${dbName}\`;\n\n`;
+
         const [tables] = await this.connection.query<RowDataPacket[]>(`SHOW TABLES`);
-        const tableKey = `Tables_in_${this.config.database}`;
-        let dumpSQL = `-- Dump of database ${this.config.database}\n\n`;
+        const tableKey = `Tables_in_${dbName}`;
 
         for (const row of tables) {
             const tableName = row[tableKey];
-            const [rows] = await this.connection.query<RowDataPacket[]>(`SELECT * FROM \`${tableName}\``);
 
+            const [[createResult]] = await this.connection.query<RowDataPacket[]>(`SHOW CREATE TABLE \`${tableName}\``);
+            const createTableSQL = createResult['Create Table'];
+            dumpSQL += `${createTableSQL};\n\n`;
+
+            const [rows] = await this.connection.query<RowDataPacket[]>(`SELECT * FROM \`${tableName}\``);
             if (rows.length === 0) continue;
 
             const columns = Object.keys(rows[0]);
@@ -38,6 +45,16 @@ export class MySQLDumper {
     }
 
     private async connect(): Promise<void> {
+        const tempConnection = await mysql.createConnection({
+            host: this.config.host,
+            user: this.config.user,
+            password: this.config.password || '',
+            port: this.config.port || 3306
+        });
+
+        await tempConnection.query(`CREATE DATABASE IF NOT EXISTS \`${this.config.database}\``);
+        await tempConnection.end();
+
         this.connection = await mysql.createConnection({
             host: this.config.host,
             user: this.config.user,
