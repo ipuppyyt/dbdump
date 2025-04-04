@@ -28,14 +28,16 @@
   ],
   "author": "ipuppyyt",
   "license": "MIT",
+  "dependencies": {
+    "mysql2": "^3.14.0"
+  },
   "devDependencies": {
     "@types/node": "^22.14.0",
     "child_process": "^1.0.2",
     "fs": "0.0.1-security",
     "ora": "^8.2.0",
-    "prompts": "^2.4.2"
-  },
-  "dependencies": {
-    "mysql2": "^3.14.0"
+    "prompts": "^2.4.2",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2"
   }
 }
