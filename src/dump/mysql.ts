@@ -1,7 +1,7 @@
 import { MySQLDumpConfig } from '../types/mysql';
-import { Connection } from 'mysql2/promise';
+import { Connection, RowDataPacket } from 'mysql2/promise';
 import * as mysql from 'mysql2/promise';
-import { writeFile } from 'fs/promises';
+import { promises as fsPromises } from 'fs';
 
 export class MySQLDumper {
     private config: MySQLDumpConfig;
@@ -14,13 +14,13 @@ export class MySQLDumper {
     public async dump(): Promise<void> {
         await this.connect();
 
-        const [tables] = await this.connection.query<any[]>(`SHOW TABLES`);
+        const [tables] = await this.connection.query<RowDataPacket[]>(`SHOW TABLES`);
         const tableKey = `Tables_in_${this.config.database}`;
         let dumpSQL = `-- Dump of database ${this.config.database}\n\n`;
 
         for (const row of tables) {
             const tableName = row[tableKey];
-            const [rows] = await this.connection.query<any[]>(`SELECT * FROM \`${tableName}\``);
+            const [rows] = await this.connection.query<RowDataPacket[]>(`SELECT * FROM \`${tableName}\``);
 
             if (rows.length === 0) continue;
 
@@ -33,7 +33,7 @@ export class MySQLDumper {
             dumpSQL += '\n';
         }
 
-        await writeFile(this.config.outputFile, dumpSQL);
+        await fsPromises.writeFile(this.config.outputFile || './dump.sql', dumpSQL);
         await this.connection.end();
     }
 
@@ -41,7 +41,7 @@ export class MySQLDumper {
         this.connection = await mysql.createConnection({
             host: this.config.host,
             user: this.config.user,
-            password: this.config.password,
+            password: this.config.password || '',
             database: this.config.database,
             port: this.config.port || 3306
         });

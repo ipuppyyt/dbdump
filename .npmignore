@@ -18,6 +18,7 @@ coverage/
 # Ignore git-related files
 .git
 .gitignore
+.gitattributes
 
 # Ignore misc
 *.md~

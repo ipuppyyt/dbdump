@@ -1,4 +1,4 @@
-# 🛢️ dbdump
+# 🛢️ dbdump-gen
 
 A lightweight, TypeScript-powered utility to generate **MySQL database dumps** as SQL files with clean `INSERT` statements. Ideal for backups, migrations, and data snapshots in Node.js projects.
 
@@ -17,7 +17,7 @@ A lightweight, TypeScript-powered utility to generate **MySQL database dumps** a
 ## 📦 Installation
 
 ```bash
-npm install dbdump
+npm install dbdump-gen
 ```
 
 ---
@@ -27,7 +27,7 @@ npm install dbdump
 ### 1. Import & Use in Node.js App
 
 ```ts
-import { MySQLDumper } from 'dbdump';
+import { MySQLDumper } from 'dbdump-gen';
 
 const dumper = new MySQLDumper({
   host: 'localhost',
@@ -77,12 +77,12 @@ INSERT INTO `users` (`id`, `name`, `email`) VALUES (2, 'Bob', 'bob@example.com')
 
 ## 🧑‍💻 Author
 
-Made with 💻 and ☕ by **Dhanush S**
+Made with 💻 and ☕ by **iPuppyYT**
 
-[GitHub](https://github.com/your-username) • [npm](https://www.npmjs.com/package/dbdump)
+[GitHub](https://github.com/ipuppyyt) • [npm](https://www.npmjs.com/package/dbdump-gen)
 
 ---
 
 ## 📝 License
 
-MIT © Dhanush S
+MIT © iPuppyYT

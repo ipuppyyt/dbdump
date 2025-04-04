@@ -1,8 +1,8 @@
 export interface MySQLDumpConfig {
     host: string;
     user: string;
-    password: string;
+    password?: string;
     database: string;
     port?: number;
-    outputFile: string;
+    outputFile?: string;
 }

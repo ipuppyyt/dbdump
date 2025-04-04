@@ -1,5 +1,5 @@
 {
-  "name": "dbdump",
+  "name": "dbdump-gen",
   "version": "1.0.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -9,6 +9,9 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "files": [
     "dist"
@@ -23,12 +26,16 @@
     "postgres",
     "typescript"
   ],
-  "author": "Dhanush S",
+  "author": "ipuppyyt",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^22.14.0",
     "child_process": "^1.0.2",
     "fs": "0.0.1-security",
     "ora": "^8.2.0",
     "prompts": "^2.4.2"
+  },
+  "dependencies": {
+    "mysql2": "^3.14.0"
   }
 }
