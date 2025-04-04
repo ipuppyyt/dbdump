@@ -1,0 +1,34 @@
+{
+  "name": "dbdump",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "deploy": "node deploy/index.mjs"
+  },
+  "keywords": [
+    "db",
+    "dump",
+    "postgres",
+    "typescript"
+  ],
+  "author": "Dhanush S",
+  "license": "MIT",
+  "devDependencies": {
+    "child_process": "^1.0.2",
+    "fs": "0.0.1-security",
+    "ora": "^8.2.0",
+    "prompts": "^2.4.2"
+  }
+}

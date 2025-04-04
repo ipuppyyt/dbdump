@@ -1,0 +1,24 @@
+# Ignore source files
+src/
+tsup.config.ts
+tsconfig.json
+
+# Ignore dev environment files
+.vscode/
+*.log
+*.env
+.env.*
+
+# Ignore build scripts & node_modules
+node_modules/
+test/
+__tests__/
+coverage/
+
+# Ignore git-related files
+.git
+.gitignore
+
+# Ignore misc
+*.md~
+.DS_Store
